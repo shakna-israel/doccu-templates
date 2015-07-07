@@ -3,10 +3,14 @@
 {% include 'styles.html' %}
 {% include 'sidebar.html' %}
 <h2>Document: {{title}}</h2>
-<h3>Active: {{date}}</h3>
+{% if current_date > renew_date %}
+    <h3>Expired</h3>
+{% else %}
+    <h3>Active: {{date}}</h3>
+{% endif %}
 <h3>Version: {{version}}</h3>
 {% if current_date > renew_date %}
-    <h3>Review: EXPIRED: {{renew_date}}</h3>
+    <h3>Review: EXPIRED</h3>
 {% else %}
     <h3>Review: {{renew_date}}</h3>
 {% endif %}
