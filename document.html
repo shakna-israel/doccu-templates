@@ -69,10 +69,18 @@ var docDefinition = {
     { text: "{{userid}}", fontSize: 8 },
     "\n",
     { text: "Active:", fontSize: 15 },
-    "{{date}}",
+    {% if current_date > renew_date %}
+        "EXPIRED",
+    {% else %}
+        "{{date}}",
+    {% endif %}
     "\n",
     { text: "Review:", fontSize: 15 },
-    "{{renew_date}}",
+    {% if current_date > renew_date %}
+        "EXPIRED",
+    {% else %}
+        "{{renew_date}}",
+    {% endif %}
     "\n",
     { text: "Category:", fontSize: 15 },
     "\n",
