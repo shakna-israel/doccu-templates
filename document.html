@@ -34,7 +34,7 @@
 {{content_markdown|safe}}
 
 
-<script src="/static/js/pdfmake.min.js"></script>
+<script src="https://raw.githubusercontent.com/bpampuch/pdfmake/master/build/pdfmake.min.js"></script>
 <script src="/static/js/vfs_fonts.js"></script>
 <script>
 var docDefinition = {
@@ -54,9 +54,8 @@ var docDefinition = {
         marginLeft: 20,
         marginRight: 20,
         columns: [
-           { text: "Ballarat Christian College"},
            {% if logo %}
-           { image: "{{logo}}", width: 100 },
+           { image: "data:{{logo}};base64,{{logo_base64}}", width: 100 },
            {% endif %}
            { text: pagenumber.toString() + " of " + pagecount, alignment: "right" },
         ],
