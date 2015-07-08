@@ -126,6 +126,16 @@ var docDefinition = {
        {% set line = re.sub('<[^<]+?>', '', line) %}
        { text: "{{line|safe}}", italics: true },
        {% endif %}
+       {% if 'strong' in line %}
+       {% set line = re.sub('<[^<]+?>', '', line) %}
+       { text: "{{line|safe}}", italics: true, bold: true },
+       {% endif %}
+       {% endif %}
+       {% if 'strong' in line %}
+       {% if 'em' not in line %}
+       {% set line = re.sub('<[^<]+?>', '', line) %}
+       { text: "{{line|safe}}", bold: true },
+       {% endif %}
        {% endif %}
         "\n",
     {% endfor %}
