@@ -109,23 +109,25 @@ var docDefinition = {
     { text: "Document Proper:", fontSize: 15, pageBreak: "before" },
     "\n",
     {% for line in content_json %}
-        {% if content_json.index(line) == content_json[-1] %}
-            "{{line|safe}}"
-        {% elif "#" in line %}
-            {% if line.count("#") == 1 %}
-                { text: "{{line.replace("#","").strip()|safe}}", fontSize: 15, bold: true},
-                "\n",
-            {% elif line.count("#") == 2 %}
-                { text: "{{line.replace("#","").strip()|safe}}", fontSize: 13, bold: true},
-                "\n",
-            {% elif line.count("#") == 3 %}
-                { text: "{{line.replace("#","").strip()|safe}}", fontSize: 12, bold: true},
-                "\n",
-            {% endif %}
-        {% else %}
-            "{{line|safe}}",
-            "\n",
-        {% endif %}
+       {% if 'h1' in line %}
+       {% set line = re.sub('<[^<]+?>', '', line) %}
+       { text: "{{line|safe}}", fontSize: 15 },
+       {% endif %}
+       {% if 'h2' in line %}
+       {% set line = re.sub('<[^<]+?>', '', line) %}
+       { text: "{{line|safe}}", fontSize: 12, bold: true },
+       {% endif %}
+       {% if 'h3' in line %}
+       {% set line = re.sub('<[^<]+?>', '', line) %}
+       { text: "{{line|safe}}", fontSize: 10, italics: true },
+       {% endif %}
+       {% if 'em' in line %}
+       {% if 'strong' not in line %}
+       {% set line = re.sub('<[^<]+?>', '', line) %}
+       { text: "{{line|safe}}", italics: true },
+       {% endif %}
+       {% endif %}
+        "\n",
     {% endfor %}
   ]
 }
