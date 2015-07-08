@@ -55,6 +55,9 @@ var docDefinition = {
         marginRight: 20,
         columns: [
            { text: "Ballarat Christian College"},
+           {% if logo %}
+           { image: "{{logo}}", width: 100 },
+           {% endif %}
            { text: pagenumber.toString() + " of " + pagecount, alignment: "right" },
         ],
   }},
