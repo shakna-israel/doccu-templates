@@ -14,7 +14,7 @@
 {% else %}
     <h3>Review: {{renew_date}}</h3>
 {% endif %}
-<small>Last Edited By: {{userid}}</small>
+<small>Authors: {{userid}}</small>
 <h3>Category: </h3>
 <ul>
 {% for item in category %}
@@ -55,33 +55,38 @@ var docDefinition = {
         marginRight: 20,
         columns: [
            {% if logo %}
-           { image: "data:{{logo}};base64,{{logo_base64}}", width: 100 },
+           [ { image: "data:{{logo}};base64,{{logo_base64}}", width: 100 },
+           {% else %}
+           [
            {% endif %}
+           { text: "Downloaded: {{current_date}}", fontSize: 8 }],
            { text: pagenumber.toString() + " of " + pagecount, alignment: "right" },
         ],
   }},
   content: [
-    { text: "Document:", fontSize: 15 },
-    "{{title|safe}}",
+    { text: "Document:", fontSize: 15, alignment: 'center' },
+    { text: "{{title|safe}}", fontSize: 20, alignment: 'center' },
+    "\n",
+    { text: "Authors:", fontSize: 8, alignment: 'center' },
+    { text: "{{userid}}", fontSize: 8, alignment: 'center' },
     "\n",
     { text: "Version:", fontSize: 15 },
     "{{version}}",
     "\n",
-    { text: "Last Edited By:", fontSize: 8 },
-    { text: "{{userid}}", fontSize: 8 },
-    "\n",
-    { text: "Active:", fontSize: 15 },
-    {% if current_date > renew_date %}
-        "EXPIRED",
+    {% if date == 'InActive' %}
+        { text: 'Active: Not Active'},
+    {% elif current_date > renew_date %}
+        { text: "Active: No Longer Active", fontSize: 15 },
     {% else %}
-        "{{date}}",
+        { text: "Active as of {{date}}", fontSize: 15 },
     {% endif %}
     "\n",
-    { text: "Review:", fontSize: 15 },
-    {% if current_date > renew_date %}
-        "EXPIRED",
+    {% if date == 'InActive' %}
+        { text: 'Review: Not Active'},
+    {% elif current_date > renew_date %}
+        { text: "Review: Past Review Date", fontSize: 15 },
     {% else %}
-        "{{renew_date}}",
+        { text: "Review by the {{renew_date}}", fontSize: 15 },
     {% endif %}
     "\n",
     { text: "Category:", fontSize: 15 },
@@ -92,10 +97,9 @@ var docDefinition = {
             "{{item|safe}}",
         {% endfor %}
       ],
-      pageBreak: "after"
     },
     "\n",
-    { text: "Descriptor:", fontSize: 15 },
+    { text: "Descriptor:", fontSize: 15, alignment: 'center' },
     "\n",
     "{{descriptor_json|safe}}",
     { text: "Preamble", fontSize: 15, pageBreak: "before" },
