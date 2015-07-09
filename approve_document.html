@@ -1,0 +1,19 @@
+{% include 'header.html' %}
+<body>
+{% include 'styles.html' %}
+{% include 'sidebar.html' %}
+
+<form action="/document/{{title}}/approve/" method="POST">
+<p id="hidden">Version Number:</p>
+<input id="hidden" name="version" type="number" required placeholder="Version Number." value="{{version}}" /><br>
+<p>Approval Date:</p>
+<small>YYYY-MM-DD</small><br>
+<input name="date" type="date" required placeholder="Date of Activation." value="{{date}}" /><br>
+<p>Review Date:</p>
+<small>YYYY-MM-DD</small><br>
+<input name="date-renew" type="date" required placeholder="Date of Next Review." value="{{renew_date}}" /><br>
+<p>ID Number:</p>
+<input name="identifier" type="password" required placeholder="ID Number" /><br>
+<input value="Submit" type="submit" />
+</form>
+</body>

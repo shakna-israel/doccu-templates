@@ -3,6 +3,15 @@
   {% if content %}
       <input id="clickMe" type="button" value="Download PDF" onclick="pdfMake.createPdf(docDefinition).download('{{version}}_{{title}}_{{date}}');" />
       <p><a href="{{path}}edit">Edit Document</a></p>
+      <p><a href="{{path}}approve">Approve Document</a></p>
   {% endif %}
   <p><a href="/document/new/new" target="_blank">New Document</a></p>
+
+{% if content %}
+<p>Versions:</p>
+{% for version in reversed(old_versions.keys()[:5]) %}
+<p><a href="{{old_versions[version]['path']}}">{{old_versions[version]['ver']}}</a></p>
+{% endfor %}
+{% endif %}
+
 </div>

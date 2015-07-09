@@ -4,15 +4,21 @@
 {% include 'sidebar.html' %}
 <h2>Document: {{title}}</h2>
 {% if current_date > renew_date %}
-    <h3>Expired</h3>
+    <h3>Active: Expired</h3>
 {% else %}
+    {% if date == 'InActive' %}
+    <h3>Document not active</h3>
+    {% else %}
     <h3>Active: {{date}}</h3>
+    {% endif %}
 {% endif %}
 <h3>Version: {{version}}</h3>
+{% if date != 'InActive' %}
 {% if current_date > renew_date %}
     <h3>Review: EXPIRED</h3>
 {% else %}
     <h3>Review: {{renew_date}}</h3>
+{% endif %}
 {% endif %}
 <small>Authors: {{userid}}</small>
 <h3>Category: </h3>
@@ -55,7 +61,7 @@ var docDefinition = {
         marginRight: 20,
         columns: [
            {% if logo %}
-           [ { image: "data:{{logo}};base64,{{logo_base64}}", width: 100 },
+           [{ image: "data:{{logo}};base64,{{logo_base64}}", width: 100 },
            {% else %}
            [
            {% endif %}
