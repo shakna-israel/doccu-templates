@@ -8,10 +8,12 @@
   <p><a href="/document/new/new" target="_blank">New Document</a></p>
 
 {% if content %}
+{% if old_versions %}
 <p>Versions:</p>
-{% for version in reversed(old_versions.keys()[:5]) %}
+{% for version in reversed(sorted(old_versions.keys())[-5:]) %}
 <p><a href="{{old_versions[version]['path']}}">{{old_versions[version]['ver']}}</a></p>
 {% endfor %}
+{% endif %}
 {% endif %}
 
 </div>
