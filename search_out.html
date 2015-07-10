@@ -26,18 +26,15 @@
 <p>No Titles Specified</p>
 {% endif %}
 
-<p>No Titles Specified</p>
 
-{% if author: %}
-<h1>Documents by {{author}}:</h1>
+{% if authors_found %}
+<h1>Documents Found with author {{search_author}}:</h1>
 <ul>
-{% for document in auth_docs %}
-    {% if document != '' %}
-        <li><a href="/document/{{document}}">{{document}}</a></li>
-    {% endif %}
+{% for document in authors_found.values() %}
+	{% set URI_title = document['title'].replace(" ", "_") %}
+	<li><a href="/document/{{document['version']}}.{{URI_title}}">{{document['title']}}</a></li>
 {% endfor %}
 </ul>
 {% else %}
-<p>No Author Specified</p>
+<p>No Authors Specified</p>
 {% endif %}
-</body>
