@@ -3,17 +3,6 @@
 {% include 'styles.html' %}
 {% include 'sidebar.html' %}
 
-{% if categories %}
-<h3>Categories Found for {{categories_search}}:</h3>
-<ul>
-{% for category in categories %}
-	<li><a href="/category/{{category}}">{{category}}</a></li>
-{% endfor %}
-</ul>
-{% else %}
-<p>No Categories Specified</p>
-{% endif %}
-
 {% if triple_filter %}
 <h3>Results for {{titles_search}} by {{search_author}} in {{categories_search}}:</h3>
 <ul>
@@ -28,6 +17,17 @@
 {% endfor %}
 {% endif %}
 {% endfor %}
+{% endfor %}
+</ul>
+{% endif %}
+
+{{ author_and_category }}
+
+{% if author_and_category %}
+<h3>Results for {{search_author}} in {{categories_search}}:</h3>
+<ul>
+{% for title in author_and_category['list'] %}
+<li>{{title}}</li>
 {% endfor %}
 </ul>
 {% endif %}
@@ -48,6 +48,24 @@
 
 {% if not both_titles_and_authors %}
 {% if not triple_filter %}
+{% if not author_and_category %}
+{% if categories %}
+<h3>Categories Found for {{categories_search}}:</h3>
+<ul>
+{% for category in categories %}
+	<li><a href="/category/{{category}}">{{category}}</a></li>
+{% endfor %}
+</ul>
+{% else %}
+<p>No Categories Specified</p>
+{% endif %}
+{% endif %}
+{% endif %}
+{% endif %}
+
+{% if not both_titles_and_authors %}
+{% if not triple_filter %}
+{% if not author_and_category %}
 {% if titles_found %}
 <h3>Documents Found for {{titles_search}}:</h3>
 <ul>
@@ -61,10 +79,12 @@
 {% endif %}
 {% endif %}
 {% endif %}
+{% endif %}
 
 
 {% if not both_titles_and_authors %}
 {% if not triple_filter %}
+{% if not author_and_category %}
 {% if authors_found %}
 <h3>Documents Found with author {{search_author}}:</h3>
 <ul>
@@ -75,6 +95,7 @@
 </ul>
 {% else %}
 <p>No Authors Specified</p>
+{% endif %}
 {% endif %}
 {% endif %}
 {% endif %}
