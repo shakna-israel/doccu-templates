@@ -21,13 +21,21 @@
 </ul>
 {% endif %}
 
-{{ author_and_category }}
-
 {% if author_and_category %}
 <h3>Results for {{search_author}} in {{categories_search}}:</h3>
 <ul>
 {% for title in author_and_category['list'] %}
-<li>{{title}}</li>
+{% for category in author_and_category['list'][title]['category'] %}
+{% set find = author_and_category['category'] %}
+{% if find in category %}
+{% if title != last_title %}
+{% set version = author_and_category['list'][title]['version'] %}
+{% set URI_title = title.replace(" ","_") %}
+<li><a href="/document/{{version}}.{{URI_title}}">{{title}}</a></li>
+{% set last_title = title %}
+{% endif %}
+{% endif %}
+{% endfor %}
 {% endfor %}
 </ul>
 {% endif %}
