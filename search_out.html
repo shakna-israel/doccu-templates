@@ -14,18 +14,19 @@
 <p>No Categories Specified</p>
 {% endif %}
 
-{% if documents: %}
+{% if titles_found %}
 <h1>Documents Found:</h1>
 <ul>
-{% for document in documents %}
-    {% if document != '' %}
-        <li><a href="/document/{{document}}">{{document}}</a></li>
-    {% endif %}
+{% for document in titles_found.values() %}
+	{% set URI_title = document['title'].replace(" ", "_") %}
+	<li><a href="/document/{{document['version']}}.{{URI_title}}">{{document['title']}}</a></li>
 {% endfor %}
 </ul>
 {% else %}
-<p>No Title Specified</p>
+<p>No Titles Specified</p>
 {% endif %}
+
+<p>No Titles Specified</p>
 
 {% if author: %}
 <h1>Documents by {{author}}:</h1>
