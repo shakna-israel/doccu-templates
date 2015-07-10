@@ -115,33 +115,72 @@ var docDefinition = {
     { text: "Document Proper:", fontSize: 15, pageBreak: "before" },
     "\n",
     {% for line in content_json %}
-       {% if 'h1' in line %}
+       {% if '<' in line %}
+       {% if '<h1' in line %}
        {% set line = re.sub('<[^<]+?>', '', line) %}
        { text: "{{line|safe}}", fontSize: 15 },
        {% endif %}
-       {% if 'h2' in line %}
+
+       {% if '<h2' in line %}
        {% set line = re.sub('<[^<]+?>', '', line) %}
        { text: "{{line|safe}}", fontSize: 12, bold: true },
        {% endif %}
-       {% if 'h3' in line %}
+
+       {% if '<h3' in line %}
        {% set line = re.sub('<[^<]+?>', '', line) %}
        { text: "{{line|safe}}", fontSize: 10, italics: true },
        {% endif %}
-       {% if 'em' in line %}
-       {% if 'strong' not in line %}
+       
+       {% if '<em' in line %}
+       {% if '<strong' not in line %}
        {% set line = re.sub('<[^<]+?>', '', line) %}
        { text: "{{line|safe}}", italics: true },
        {% endif %}
-       {% if 'strong' in line %}
-       {% set line = re.sub('<[^<]+?>', '', line) %}
-       { text: "{{line|safe}}", italics: true, bold: true },
        {% endif %}
-       {% endif %}
-       {% if 'strong' in line %}
-       {% if 'em' not in line %}
+
+       {% if '<strong' in line %}
+       {% if '<em' not in line %}
        {% set line = re.sub('<[^<]+?>', '', line) %}
        { text: "{{line|safe}}", bold: true },
        {% endif %}
+       {% endif %}
+
+       {% if '<strong' in line %}
+       {% if '<em' in line %}
+       {% set line = re.sub('<[^<]+?>', '', line) %}
+       { text: "{{line|safe}}", bold: true, italics: true },
+       {% endif %}
+       {% endif %}
+
+       {% if '<ul' in line %}
+       {% set line = re.sub('<[^<]+?>', '', line) %}
+       { ul: [
+       { text: "{{line|safe}}" },
+       ]
+       },
+       {% endif %}
+
+       {% if '<ol' in line %}
+       {% set line = re.sub('<[^<]+?>', '', line) %}
+       { ol: [
+       { text: "{{line|safe}}" },
+       ]
+       },
+       {% endif %}
+
+       {% if 'img' in line %}
+       {% set preline = re.findall('"(.*?)"', line) %}
+       {% set line = re.sub('<[^<]+?>', '', preline[0]) %}
+       {% set imagePointer = open(expanduser('~/.doccu/') + line, 'rb') %}
+       {% set line_base64 = base64.b64encode(imagePointer.read()) %}
+       {% set line_close = imagePointer.close() %}
+       { image: "data:{{line}};base64,{{line_base64}}", width: 200, alignment: 'center' },
+       {% endif %}
+
+       {% else %}
+
+       {% set line = re.sub('<[^<]+?>', '', line) %}
+       { text: "{{line|safe}}" },
        {% endif %}
         "\n",
     {% endfor %}
