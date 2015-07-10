@@ -40,6 +40,19 @@
 </ul>
 {% endif %}
 
+{% if category_and_title %}
+<h3>Results for {{titles_search}} in {{categories_search}}:</h3>
+<ul>
+	{% for item in category_and_title['list'] %}
+	{% if titles_search.lower() in item.lower() %}
+	{% set version = category_and_title['list'][item]['version'] %}
+	{% set URI_title = item.replace(" ", "_") %}
+	<li><a href="/document/{{version}}.{{URI_title}}">{{item}}</a></li>
+	{% endif %}
+	{% endfor %}
+</ul>
+{% endif %}
+
 {% if both_titles_and_authors %}
 <h3>Results for {{titles_search}} by {{search_author}}:</h3>
 <ul>
@@ -57,6 +70,7 @@
 {% if not both_titles_and_authors %}
 {% if not triple_filter %}
 {% if not author_and_category %}
+{% if not category_and_title %}
 {% if categories %}
 <h3>Categories Found for {{categories_search}}:</h3>
 <ul>
@@ -70,10 +84,12 @@
 {% endif %}
 {% endif %}
 {% endif %}
+{% endif %}
 
 {% if not both_titles_and_authors %}
 {% if not triple_filter %}
 {% if not author_and_category %}
+{% if not category_and_title %}
 {% if titles_found %}
 <h3>Documents Found for {{titles_search}}:</h3>
 <ul>
@@ -88,11 +104,12 @@
 {% endif %}
 {% endif %}
 {% endif %}
-
+{% endif %}
 
 {% if not both_titles_and_authors %}
 {% if not triple_filter %}
 {% if not author_and_category %}
+{% if category_and_title %}
 {% if authors_found %}
 <h3>Documents Found with author {{search_author}}:</h3>
 <ul>
@@ -103,6 +120,7 @@
 </ul>
 {% else %}
 <p>No Authors Specified</p>
+{% endif %}
 {% endif %}
 {% endif %}
 {% endif %}
