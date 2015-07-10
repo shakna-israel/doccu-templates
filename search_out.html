@@ -4,7 +4,7 @@
 {% include 'sidebar.html' %}
 
 {% if categories %}
-<h1>Categories Found for {{categories_search}}:</h1>
+<h3>Categories Found for {{categories_search}}:</h3>
 <ul>
 {% for category in categories %}
 	<li><a href="/category/{{category}}">{{category}}</a></li>
@@ -14,8 +14,42 @@
 <p>No Categories Specified</p>
 {% endif %}
 
+{% if triple_filter %}
+<h3>Results for {{titles_search}} by {{search_author}} in {{categories_search}}:</h3>
+<ul>
+{% for title in triple_filter['list'] %}
+{% for compare in titles_found.values() %}
+{% if title == compare['title'] %}
+{% for category in compare['category'] %}
+{% if triple_filter['category'] in category %}
+{% set URI_title = compare['title'].replace(" ", "_") %}
+<li><a href="/document/{{compare['version']}}.{{URI_title}}">{{title}}</a></li>
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endfor %}
+{% endfor %}
+</ul>
+{% endif %}
+
+{% if both_titles_and_authors %}
+<h3>Results for {{titles_search}} by {{search_author}}:</h3>
+<ul>
+{% for title in both_titles_and_authors %}
+{% for compare in titles_found.values() %}
+{% if title == compare['title'] %}
+{% set URI_title = compare['title'].replace(" ", "_") %}
+<li><a href="/document/{{compare['version']}}.{{URI_title}}">{{title}}</a></li>
+{% endif %}
+{% endfor %}
+{% endfor %}
+</ul>
+{% endif %}
+
+{% if not both_titles_and_authors %}
+{% if not triple_filter %}
 {% if titles_found %}
-<h1>Documents Found for {{titles_search}}:</h1>
+<h3>Documents Found for {{titles_search}}:</h3>
 <ul>
 {% for document in titles_found.values() %}
 	{% set URI_title = document['title'].replace(" ", "_") %}
@@ -25,10 +59,14 @@
 {% else %}
 <p>No Titles Specified</p>
 {% endif %}
+{% endif %}
+{% endif %}
 
 
+{% if not both_titles_and_authors %}
+{% if not triple_filter %}
 {% if authors_found %}
-<h1>Documents Found with author {{search_author}}:</h1>
+<h3>Documents Found with author {{search_author}}:</h3>
 <ul>
 {% for document in authors_found.values() %}
 	{% set URI_title = document['title'].replace(" ", "_") %}
@@ -37,4 +75,6 @@
 </ul>
 {% else %}
 <p>No Authors Specified</p>
+{% endif %}
+{% endif %}
 {% endif %}
