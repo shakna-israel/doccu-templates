@@ -1,0 +1,42 @@
+{% include 'header.html' %}
+<body>
+{% include 'styles.html' %}
+{% include 'sidebar.html' %}
+
+{% if categories %}
+<h1>Categories Found:</h1>
+<ul>
+{% for category in categories %}
+	<li><a href="/category/{{category}}">{{category}}</a></li>
+{% endfor %}
+</ul>
+{% else %}
+<p>No Categories Specified</p>
+{% endif %}
+
+{% if documents: %}
+<h1>Documents Found:</h1>
+<ul>
+{% for document in documents %}
+    {% if document != '' %}
+        <li><a href="/document/{{document}}">{{document}}</a></li>
+    {% endif %}
+{% endfor %}
+</ul>
+{% else %}
+<p>No Title Specified</p>
+{% endif %}
+
+{% if author: %}
+<h1>Documents by {{author}}:</h1>
+<ul>
+{% for document in auth_docs %}
+    {% if document != '' %}
+        <li><a href="/document/{{document}}">{{document}}</a></li>
+    {% endif %}
+{% endfor %}
+</ul>
+{% else %}
+<p>No Author Specified</p>
+{% endif %}
+</body>

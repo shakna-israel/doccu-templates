@@ -10,11 +10,7 @@
     {% endif %}
 {% endfor %}
 </ul>
-<h1>Policies Under Management:</h1>
-<ul>
-{% for item in policies %}
-    <li><a href="/document/{{policies[item]['url']}}">{{item}}</a></li>
-{% endfor %}
-</ul>
+
+{% include 'search.html' %}
 
 </body>
