@@ -4,7 +4,7 @@
 {% include 'sidebar.html' %}
 
 {% if categories %}
-<h1>Categories Found:</h1>
+<h1>Categories Found for {{categories_search}}:</h1>
 <ul>
 {% for category in categories %}
 	<li><a href="/category/{{category}}">{{category}}</a></li>
@@ -15,7 +15,7 @@
 {% endif %}
 
 {% if titles_found %}
-<h1>Documents Found:</h1>
+<h1>Documents Found for {{titles_search}}:</h1>
 <ul>
 {% for document in titles_found.values() %}
 	{% set URI_title = document['title'].replace(" ", "_") %}
