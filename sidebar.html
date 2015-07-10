@@ -1,4 +1,8 @@
 <div class="data-collect">
+  {% if title != 'Home' %}
+  <p class="doccu-title">Doccu</p>
+  <hr>
+  {% endif %}
   <p><a href="/">Home</a></p>
   {% if content %}
       <input id="clickMe" type="button" value="Download PDF" onclick="pdfMake.createPdf(docDefinition).download('{{version}}_{{title}}_{{date}}');" />

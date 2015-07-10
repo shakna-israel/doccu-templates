@@ -1,0 +1,25 @@
+@font-face {
+  font-family: 'Acme';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Acme'), local('Acme-Regular'), url(http://fonts.gstatic.com/s/acme/v5/CMfjQTCaAjBuWy3e4bQMZA.woff2) format('woff2'), url(http://fonts.gstatic.com/s/acme/v5/-nVwQJDyFoBcrvpER8f-lA.woff) format('woff');
+}
+@font-face {
+  font-family: 'Slabo 27px';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Slabo 27px'), local('Slabo27px-Regular'), url(http://fonts.gstatic.com/s/slabo27px/v3/PuwvqkdbcqU-fCZ9Ed-b7fk_vArhqVIZ0nv9q090hN8.woff2) format('woff2'), url(http://fonts.gstatic.com/s/slabo27px/v3/PuwvqkdbcqU-fCZ9Ed-b7RsxEYwM7FgeyaSgU71cLG0.woff) format('woff');
+}
+
+.doccu-title {
+    font-family: 'Acme', sans-serif;
+    margin-bottom: -0.7em;
+    width:100%;
+    text-align: center;
+}
+
+.doccu-tag {
+    font-family: 'Slabo 27px', serif;
+    width:100%;
+    text-align: center;
+}

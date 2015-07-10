@@ -1,20 +1,49 @@
 <style>
+
+{% include 'clearfix.css' %}
+{% include 'branding.css' %}
+
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Open Sans'), local('OpenSans'), url(http://fonts.gstatic.com/s/opensans/v13/cJZKeOuBrn4kERxqtaUH3VtXRa8TVwTICgirnJhmVJw.woff2) format('woff2'), url(http://fonts.gstatic.com/s/opensans/v13/cJZKeOuBrn4kERxqtaUH3T8E0i7KZn-EPnyo3HZu7kw.woff) format('woff');
+}
+
+p,a,h1,h2,h3 {
+  font-family: 'Open Sans', sans-serif;
+}
+
 .data-collect {
+  text-align:right;
   position:fixed;
   top:2em;
   right:2em;
   padding:1em;
   background:#FFF;
   box-shadow:0 0 8px rgba(128, 128, 128, 0.8);
-        -webkit-box-shadow:0 0 8px rgba(128, 128, 128, 0.8);
-        -moz-box-shadow:0 0 8px rgba(128, 128, 128, 0.8)
+  -webkit-box-shadow:0 0 8px rgba(128, 128, 128, 0.8);
+  -moz-box-shadow:0 0 8px rgba(128, 128, 128, 0.8)
 }
 textarea { width: 100%; height: 6em; }
 #document-proper { height: 16em; }
 #hidden { display:none; }
 
 @media (min-width: 30em) {
-        body:90%;
+        .content {
+          width:90%;
+          margin-left: auto;
+          margin-right: auto;
+        }
+        .document {
+          width:80%;
+          margin-left: auto;
+          margin-right: auto;
+          padding:1em;
+          box-shadow:0 0 8px rgba(128, 128, 128, 0.8);
+          -webkit-box-shadow:0 0 8px rgba(128, 128, 128, 0.8);
+          -moz-box-shadow:0 0 8px rgba(128, 128, 128, 0.8)
+        }
 }
 
 @media (max-width: 30em) {

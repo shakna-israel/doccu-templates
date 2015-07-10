@@ -2,6 +2,7 @@
 <body>
 {% include 'styles.html' %}
 {% include 'sidebar.html' %}
+<div class="document">
 <h2>Document: {{title}}</h2>
 {% if current_date > renew_date %}
     <h3>Active: Expired</h3>
@@ -38,6 +39,7 @@
 <hr/>
 <h3>Document Proper:</h3>
 {{content_markdown|safe}}
+</div>
 
 
 <script src="/static/js/pdfmake.min.js"></script>
@@ -130,7 +132,7 @@ var docDefinition = {
        {% set line = re.sub('<[^<]+?>', '', line) %}
        { text: "{{line|safe}}", fontSize: 10, italics: true },
        {% endif %}
-       
+
        {% if '<em' in line %}
        {% if '<strong' not in line %}
        {% set line = re.sub('<[^<]+?>', '', line) %}
